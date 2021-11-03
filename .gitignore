@@ -6,3 +6,4 @@ dist
 
 *.swp
 *.swo
+.npmrc
