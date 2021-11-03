@@ -11,6 +11,9 @@
 	"scripts": {
 		"test": "uvu tests"
 	},
+	"files": [
+		"src"
+	],
 	"keywords": [
 		"Store",
 		"reactivity"
