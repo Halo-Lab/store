@@ -11,6 +11,9 @@
 	"scripts": {
 		"test": "uvu tests"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"files": [
 		"src"
 	],
