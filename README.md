@@ -1,4 +1,4 @@
-# @halo/store
+# @halo-lab/store
 
 Every application need to handle a cache (also known as _state_).
 
@@ -9,7 +9,7 @@ For using this package you should have NodeJS version `12.22.0` and above (that 
 ## Installing
 
 ```sh
-npm i @halo/store
+npm i @halo-lab/store
 ```
 
 ## Using
@@ -23,7 +23,7 @@ function store<S extends object>(value: S): Store<S>;
 It accepts an object whose values are treated as chunks of the cache. To get a data from `Store` object reach a property that are pointed to the needed value.
 
 ```ts
-const cache = store({ url: '...' });
+const cache = store({ url: "..." });
 
 const url: string = cache.url;
 ```
@@ -32,14 +32,14 @@ For changing a value of some property inside the store you should assign a new v
 
 ```ts
 // A value inside the cache store will be changed.
-cache.url = 'https://new.url';
+cache.url = "https://new.url";
 ```
 
 Changing the value inside the store is reactive. You can listen to this changes through `on` method of the `Store`.
 
 ```ts
 // Create subscription.
-const onUrlChange = cache.on('url');
+const onUrlChange = cache.on("url");
 // Listen to the url property changes.
 onUrlChange((url) => {
 	/* Do something */
@@ -49,9 +49,9 @@ onUrlChange((url) => {
 `on` method accepts a list of property names which you want to be dependent on. It returns a function that allows to register a listener that will be invoked when those properties change.
 
 ```ts
-const cache = store({ a: 1, b: '', c: false });
+const cache = store({ a: 1, b: "", c: false });
 
-const onABChange = cache.on('a', 'b');
+const onABChange = cache.on("a", "b");
 
 onABChange((a, b) => {
 	/* ... */
@@ -61,7 +61,7 @@ onABChange((a, b) => {
 Latter returns the `unsubscribe` function that stops listening to changes.
 
 ```ts
-const onUrlChange = cache.on('url');
+const onUrlChange = cache.on("url");
 
 // ...
 
@@ -90,13 +90,13 @@ For now, there are integraitons for [React](https://reactjs.org/) and [edelweiss
 
 ### React
 
-For creating pointer you should import `createPointer` function from `@halo/store/react` submodule.
+For creating pointer you should import `createPointer` function from `@halo-lab/store/react` submodule.
 
 ```ts
-import { store } from '@halo/store';
-import { createPointer } from '@halo/store/react';
+import { store } from "@halo-lab/store";
+import { createPointer } from "@halo-lab/store/react";
 
-const appStore = store({ keyFromStore: { inner: '' } });
+const appStore = store({ keyFromStore: { inner: "" } });
 
 const useStoreValue = createPointer(appStore);
 ```
@@ -104,7 +104,7 @@ const useStoreValue = createPointer(appStore);
 With pointer you can create reactive container that is depend on a value from the store.
 
 ```ts
-const [value, setValue] = useStoreValue('keyFromStore');
+const [value, setValue] = useStoreValue("keyFromStore");
 ```
 
 By default, you can get and update the value of `keyFromStore` property in the store. But you can customize what it should return and update by providing `getter` and `setter` arguments.
@@ -117,7 +117,7 @@ const [value, setInnerValue] = useStoreValue(
 	(currentState, newValue) => ({
 		...currentState,
 		keyFromStore: { ...currentState.keyFromStore, inner: newValue },
-	}),
+	})
 );
 ```
 
@@ -125,17 +125,17 @@ This is useful for create dependency on two or more store values. Also, `getter`
 
 ### Edelweiss
 
-The same `createPointer` function exist in `@halo/store/edelweiss` submodule. But instead of returning a tuple it returns a `Data` function.
+The same `createPointer` function exist in `@halo-lab/store/edelweiss` submodule. But instead of returning a tuple it returns a `Data` function.
 
 ```ts
-import { store } from '@halo/store';
-import { createPointer } from '@halo/store/edelweiss';
+import { store } from "@halo-lab/store";
+import { createPointer } from "@halo-lab/store/edelweiss";
 
-const appStore = store({ key: { inner: 'foo' } });
+const appStore = store({ key: { inner: "foo" } });
 
 const appStorePointer = createPointer(store);
 
-const keyValue = createPointer('key');
+const keyValue = createPointer("key");
 ```
 
 And the same `getter` and `setter` parameters are available here.
